@@ -1,23 +1,48 @@
----
-layout: default
----
+<html>
+<head>
+<title>CryptoUSDSimpleTicker</title>
+<script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script>
+</head>
+<body>
+	<div id='container'>
+	</div>
 
-<div class="home">
+<script type="text/javascript">
 
-  <h1 class="page-heading">Posts</h1>
+	function buildTicker(currency, config){
+		var ticker = document.createElement('div');
 
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+		ticker.dataset.currency    = currency
+		ticker.dataset.base        = "USD"   || config.base;
+		ticker.dataset.secondary   = "BTC"   || config.secondary;
+		ticker.dataset.volume      = "false" || config.volume;
+		ticker.dataset.rank        = "false" || config.rank;
+		ticker.dataset.stats       = "false" || config.stats;
+		ticker.dataset.statsticker = "false" || config.statsticker;
+		ticker.dataset.marketcap   = "false" || config.marketcap;
+		ticker.classList += 'coinmarketcap-currency-widget'
 
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
+		return ticker;
+	}
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+	var currencies = ['bitcoin','ethereum','litecoin','ripple','tron','verge']
 
-</div>
+	
+	var container = document.getElementById('container')
+
+	for (i in currencies){
+
+		container.appendChild(buildTicker(currencies[i],{
+			base       : "USD", 
+			secondary  : "BTC", 
+			volume     : "false", 
+			rank       : "false", 
+			stats      : "false", 
+			statsticker: "false", 
+			marketcap  : "false"
+		}))
+	}
+
+</script>
+
+</html>
