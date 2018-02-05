@@ -2,6 +2,14 @@
 <head>
 <title>CryptoUSDSimpleTicker</title>
 <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script>
+
+<style>
+	div.curContainer{
+		display:block;
+		width:100%;
+		font-size:2em;
+	}
+</style>
 </head>
 <body>
 	<div id='container'>
@@ -20,25 +28,25 @@
 		ticker.dataset.stats       = "false" || config.stats;
 		ticker.dataset.statsticker = "false" || config.statsticker;
 		ticker.dataset.marketcap   = "false" || config.marketcap;
-		ticker.classList += 'coinmarketcap-currency-widget'
+		ticker.classList += 'curContainer coinmarketcap-currency-widget'
 
 		return ticker;
 	}
 
 	var currencies = ['bitcoin','ethereum','litecoin','ripple','tron','verge']
 
-	
+
 	var container = document.getElementById('container')
 
 	for (i in currencies){
 
 		container.appendChild(buildTicker(currencies[i],{
-			base       : "USD", 
-			secondary  : "BTC", 
-			volume     : "false", 
-			rank       : "false", 
-			stats      : "false", 
-			statsticker: "false", 
+			base       : "USD",
+			secondary  : "BTC",
+			volume     : "false",
+			rank       : "false",
+			stats      : "false",
+			statsticker: "false",
 			marketcap  : "false"
 		}))
 	}
