@@ -4,16 +4,27 @@
 <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script>
 
 <style>
-	div.curContainer{
+	body{
+		background-color:black;
+	}
+	div.coinmarketcap-currency-widget{
 		display:block;
 		width:100%;
 		font-size:2em;
+		color:white;
+	}
+	a.attribution{
+		color:white;
+		text-align:center;
+		font-family:arial;
+		font-size:12px;
 	}
 </style>
 </head>
 <body>
 	<div id='container'>
 	</div>
+		<a class='attribution' href="http://coinmarketcap.com" target="_blank" style="text-decoration: none; color: rgb(66, 139, 202);">Powered By CoinMarketCap.com</a>
 
 <script type="text/javascript">
 
@@ -28,7 +39,7 @@
 		ticker.dataset.stats       = "false" || config.stats;
 		ticker.dataset.statsticker = "false" || config.statsticker;
 		ticker.dataset.marketcap   = "false" || config.marketcap;
-		ticker.classList += 'curContainer coinmarketcap-currency-widget'
+		ticker.classList += 'coinmarketcap-currency-widget'
 
 		return ticker;
 	}
@@ -39,7 +50,6 @@
 	var container = document.getElementById('container')
 
 	for (i in currencies){
-
 		container.appendChild(buildTicker(currencies[i],{
 			base       : "USD",
 			secondary  : "BTC",
@@ -50,6 +60,30 @@
 			marketcap  : "false"
 		}))
 	}
+
+	window.setTimeout(function(){
+		var tickers = document.getElementsByClassName('coinmarketcap-currency-widget');
+
+		for (i in tickers){
+			var children = tickers[i].childNodes;
+
+			// console.log(children)
+
+			children[0].style.border = 'none';
+			children[0].innerHTML = children[0].innerHTML.replace('Powered by CoinMarketCap</a>','</a>')
+
+			// console.log(children[0].innerText)
+		}
+
+		// for(child in inerds){
+		// 	console.log(inerds[child].forEach(function(child){
+		// 		console.log(child)
+		// 	}))
+		// }
+
+	},3000)
+
+
 
 </script>
 
