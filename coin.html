@@ -1,0 +1,172 @@
+<html>
+<head>
+<title>SimpleCrypto</title>
+<style>
+	body{
+		background-color:black;
+		font-family:arial;
+	}
+	div.ticker{
+		display:block;
+		width:100%;
+		color:white;
+	}
+
+	div.ticker h4{
+		display:inline-block;
+		font-size:16px;
+		margin-left:5px;
+		min-width:80px;
+		margin-bottom:2px;
+	}
+
+	div.percent_change_values{
+		margin-left:200px;
+	}
+
+	p{
+		margin-bottom:2px;
+	}
+
+	p.price{
+		font-family:monospace;
+		display:inline-block;
+		color:green;
+		font-size:16px;
+		min-width:110px;
+		margin-right:10px;
+	}
+
+	p.neg{
+		color:red;
+	}
+
+	p.p_change{
+		font-size:14px;
+		display:inline-block;
+		min-width:50px;
+		background-color:green;
+		color:white;
+		padding:2px;
+	}
+
+	p.p_change.neg{
+		background-color:red;
+		margin:2px;
+	}
+
+	a.attribution{
+		color:white;
+		text-align:center;
+		font-family:arial;
+		font-size:12px;
+	}
+</style>
+</head>
+<body>
+	<div id='container'>
+
+		<div id='bitcoin' class="ticker">
+			<img src="https://files.coinmarketcap.com/static/img/coins/16x16/bitcoin.png">
+			<h4>Bitcoin</h4>
+		</div>
+
+		<div id='ethereum' class="ticker">
+			<img src="https://files.coinmarketcap.com/static/img/coins/16x16/ethereum.png">
+			<h4>Ethereum</h4>
+		</div>
+
+		<div id='litecoin' class="ticker">
+			<img src="https://files.coinmarketcap.com/static/img/coins/16x16/litecoin.png">
+			<h4>LiteCoin</h4>
+		</div>
+
+		<div id='ripple' class="ticker">
+			<img src="https://files.coinmarketcap.com/static/img/coins/16x16/ripple.png">
+			<h4>Ripple</h4>
+		</div>
+
+		<div id='tron' class="ticker">
+			<img src="https://files.coinmarketcap.com/static/img/coins/16x16/tron.png">
+			<h4>TRON</h4>
+		</div>
+
+		<div id='verge' class="ticker">
+			<img src="https://files.coinmarketcap.com/static/img/coins/16x16/verge.png">
+			<h4>Verge</h4>
+		</div>
+
+	</div>
+
+
+<a class='attribution' href="http://coinmarketcap.com" target="_blank" style="text-decoration: none; color: rgb(66, 139, 202);">Powered By CoinMarketCap.com</a>
+
+
+<script type="text/javascript">
+	var tickers = document.getElementsByClassName('ticker')
+
+	function buildTicker(data,div){
+
+		var hourDiff = Number(data.percent_change_1h)
+		var dailyDiff = Number(data.percent_change_24h)
+		var weeklyDiff = Number(data.percent_change_7d)
+
+		var price = document.createElement('p');
+		    price.classList += 'price'
+		    price.innerHTML = "$ " + data.price_usd;
+
+		var priceBTC = document.createElement('p');
+		    priceBTC.classList += 'price'
+		    priceBTC.innerHTML = "BTC " + data.price_btc;
+
+		var hourly = document.createElement('p');
+				hourly.classList += 'p_change';
+				hourly.innerText = hourDiff + "%";
+		var daily = document.createElement('p');
+				daily.classList += 'p_change';
+				daily .innerText = dailyDiff + "%";
+		var weekly = document.createElement('p');
+				weekly.classList += 'p_change';
+				weekly.innerText = weeklyDiff + "%";
+
+		if(hourDiff<0){hourly.classList += ' neg'}
+		if(dailyDiff<0){ daily.classList += ' neg' }
+		if(weeklyDiff<0){ weekly.classList += ' neg' }
+
+		if(hourDiff<0){ price.classList += ' neg'}
+
+		if(hourDiff<0){ priceBTC.classList += ' neg'}
+
+		div.appendChild(price)
+		div.appendChild(priceBTC)
+		var changes = document.createElement('div')
+		    changes.classList += 'percent_change_values'
+		changes.appendChild(hourly)
+		changes.appendChild(daily)
+		changes.appendChild(weekly)
+
+		div.appendChild(changes)
+
+	}
+
+	function httpGetAsync(coin, div, callback){
+		var url = "https://api.coinmarketcap.com/v1/ticker/"+coin+"/"
+		console.log(url)
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+      if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+				var val = JSON.parse(xmlHttp.responseText)[0];
+				callback(val,div)
+			}
+    }
+    xmlHttp.open("GET", url, true); // true for asynchronous
+    xmlHttp.send();
+	}
+
+	for (var i=0; i<tickers.length; i++){
+		httpGetAsync(tickers[i].id, tickers[i], buildTicker)
+	}
+
+</script>
+
+</html>
