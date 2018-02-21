@@ -1,90 +1,33 @@
 <html>
 <head>
 <title>CryptoUSDSimpleTicker</title>
-<script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script>
 
 <style>
-	body{
-		background-color:black;
-	}
-	div.coinmarketcap-currency-widget{
-		display:block;
-		width:100%;
-		font-size:2em;
-		color:white;
-	}
-	a.attribution{
-		color:white;
-		text-align:center;
-		font-family:arial;
-		font-size:12px;
-	}
+body{
+  font-size: 2em;
+  margin-left: 200px;
+  background-color:lightgray;
+  font-family:monospace;
+}
+ul{
+  list-style-type:none;
+}
+li{
+  margin-top:20px;
+}
 </style>
+
 </head>
+
+
 <body>
-	<div id='container'>
-	</div>
-		<a class='attribution' href="http://coinmarketcap.com" target="_blank" style="text-decoration: none; color: rgb(66, 139, 202);">Powered By CoinMarketCap.com</a>
-
-<script type="text/javascript">
-
-	function buildTicker(currency, config){
-		var ticker = document.createElement('div');
-
-		ticker.dataset.currency    = currency
-		ticker.dataset.base        = "USD"   || config.base;
-		ticker.dataset.secondary   = "BTC"   || config.secondary;
-		ticker.dataset.volume      = "false" || config.volume;
-		ticker.dataset.rank        = "false" || config.rank;
-		ticker.dataset.stats       = "false" || config.stats;
-		ticker.dataset.statsticker = "false" || config.statsticker;
-		ticker.dataset.marketcap   = "false" || config.marketcap;
-		ticker.classList += 'coinmarketcap-currency-widget'
-
-		return ticker;
-	}
-
-	var currencies = ['bitcoin','ethereum','litecoin','ripple','tron','verge']
-
-
-	var container = document.getElementById('container')
-
-	for (i in currencies){
-		container.appendChild(buildTicker(currencies[i],{
-			base       : "USD",
-			secondary  : "BTC",
-			volume     : "false",
-			rank       : "false",
-			stats      : "false",
-			statsticker: "false",
-			marketcap  : "false"
-		}))
-	}
-
-	window.setTimeout(function(){
-		var tickers = document.getElementsByClassName('coinmarketcap-currency-widget');
-
-		for (i in tickers){
-			var children = tickers[i].childNodes;
-
-			// console.log(children)
-
-			children[0].style.border = 'none';
-			children[0].innerHTML = children[0].innerHTML.replace('Powered by CoinMarketCap</a>','</a>')
-
-			// console.log(children[0].innerText)
-		}
-
-		// for(child in inerds){
-		// 	console.log(inerds[child].forEach(function(child){
-		// 		console.log(child)
-		// 	}))
-		// }
-
-	},3000)
-
-
-
-</script>
-
+  <ul>
+  <li><a href="http://www.usgs.gov/products/data-and-tools/gis-data"> http://www.usgs.gov/products/data-and-tools/gis-data"</a></li>
+  <li><a href="https://freegisdata.rtwilson.com/"> https://freegisdata.rtwilson.com/"</a></li>
+  <li><a href="http://www.naturalearthdata.com/downloads/"> http://www.naturalearthdata.com/downloads/"</a></li>
+  <li><a href="http://www.opentopography.org/"> http://www.opentopography.org/"</a></li>
+  <li><a href="https://hub.arcgis.com/pages/open-data"> https://hub.arcgis.com/pages/open-data"</a></li>
+  <li><a href="https://www.digitalglobe.com/opendata"> https://www.digitalglobe.com/opendata"</a></li>
+</ul>
+</body>
 </html>
